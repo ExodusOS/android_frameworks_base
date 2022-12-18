@@ -446,7 +446,7 @@
     <!-- The size of the gesture span needed to activate the "pull" notification expansion -->
     <dimen name="pull_span_min">25dp</dimen>
 
-    <dimen name="qs_corner_radius">@*android:dimen/config_dialogCornerRadius</dimen>
+    <dimen name="qs_corner_radius">32dp</dimen>
     <dimen name="qs_tile_height">84dp</dimen>
     <dimen name="qs_tile_margin_horizontal">12dp</dimen>
     <dimen name="qs_tile_margin_vertical">@dimen/qs_tile_margin_horizontal</dimen>
@@ -922,7 +922,7 @@
 
     <!--  Blur radius on status bar window and power menu  -->
     <dimen name="min_window_blur_radius">1px</dimen>
-    <dimen name="max_window_blur_radius">65px</dimen>
+    <dimen name="max_window_blur_radius">100px</dimen>
 
     <!-- How much into a DisplayCutout's bounds we can go, on each side -->
     <dimen name="display_cutout_margin_consumption">0px</dimen>
