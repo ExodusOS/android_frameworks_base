@@ -1999,7 +1999,9 @@ class PackageManagerShellCommand extends ShellCommand {
     private int runUninstall() throws RemoteException {
         final PrintWriter pw = getOutPrintWriter();
         int flags = 0;
-        int userId = UserHandle.USER_ALL;
+        // Make sure it won't be installed into parallel users
+        // via `adb install` command by default.
+        int userId = UserHandle.USER_CURRENT;
         long versionCode = PackageManager.VERSION_CODE_HIGHEST;
 
         String opt;
