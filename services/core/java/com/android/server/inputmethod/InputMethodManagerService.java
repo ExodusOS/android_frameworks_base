@@ -193,8 +193,6 @@ import com.android.server.statusbar.StatusBarManagerService;
 import com.android.server.utils.PriorityDump;
 import com.android.server.wm.WindowManagerInternal;
 
-import ink.kaleidoscope.server.ParallelSpaceManagerService;
-
 import lineageos.hardware.LineageHardwareManager;
 import lineageos.providers.LineageSettings;
 
@@ -1891,10 +1889,6 @@ public class InputMethodManagerService extends IInputMethodManager.Stub
         if (userId == mSettings.getCurrentUserId()) {
             return true;
         }
-        if (ParallelSpaceManagerService.convertToParallelOwnerIfPossible(userId)
-                == mSettings.getCurrentUserId()) {
-            return true;
-        }
 
         // Caveat: A process which has INTERACT_ACROSS_USERS_FULL gets results for the
         // foreground user, not for the user of that process. Accordingly InputMethodManagerService
@@ -3368,9 +3362,7 @@ public class InputMethodManagerService extends IInputMethodManager.Stub
                     return InputBindResult.INVALID_USER;
                 }
             } else {
-                // For parallel users, always use IM from owners.
-                userId = ParallelSpaceManagerService
-                            .convertToParallelOwnerIfPossible(callingUserId);
+                userId = callingUserId;
             }
             final InputBindResult result;
             synchronized (mMethodMap) {

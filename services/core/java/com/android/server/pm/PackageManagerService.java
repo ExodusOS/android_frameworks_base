@@ -417,8 +417,6 @@ import com.nvidia.NvAppProfileService;
 import dalvik.system.CloseGuard;
 import dalvik.system.VMRuntime;
 
-import ink.kaleidoscope.server.ParallelSpaceManagerService;
-
 import libcore.io.IoUtils;
 import libcore.util.EmptyArray;
 import libcore.util.HexEncoding;
@@ -21446,21 +21444,6 @@ public class PackageManagerService extends IPackageManager.Stub
     public void deletePackageVersioned(VersionedPackage versionedPackage,
             final IPackageDeleteObserver2 observer, final int userId, final int deleteFlags) {
         deletePackageVersionedInternal(versionedPackage, observer, userId, deleteFlags, false);
-
-        // Delete for parallel users if the package is deleted in their owner.
-        if (!ParallelSpaceManagerService.isCurrentParallelOwner(userId))
-            return;
-        final long token = Binder.clearCallingIdentity();
-        try {
-            for (int parallelUserId : ParallelSpaceManagerService.getCurrentParallelUserIds()) {
-                    mDeletePackageHelper.deletePackageVersionedInternal(versionedPackage,
-                    new PackageInstallerService.PackageDeleteObserverAdapter(
-                            mContext, null, versionedPackage.getPackageName(),
-                            false, parallelUserId)
-                    .getBinder(), parallelUserId, 0, true);
-            }
-        } finally {
-            Binder.restoreCallingIdentity(token);
     }
 
     private void deletePackageVersionedInternal(VersionedPackage versionedPackage,

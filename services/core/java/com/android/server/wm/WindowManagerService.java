@@ -308,8 +308,6 @@ import com.android.server.power.ShutdownThread;
 import com.android.server.utils.DeviceConfigInterface;
 import com.android.server.utils.PriorityDump;
 
-import ink.kaleidoscope.server.ParallelSpaceManagerService;
-
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
@@ -3567,7 +3565,7 @@ public class WindowManagerService extends IWindowManager.Stub
         for (int i = 0; i < mCurrentProfileIds.length; i++) {
             if (mCurrentProfileIds[i] == userId) return true;
         }
-        return ParallelSpaceManagerService.isCurrentParallelUser(userId);
+        return false;
     }
 
     public void enableScreenAfterBoot() {
